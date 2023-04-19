@@ -15,6 +15,7 @@ export class Arr {
         }
         return arr
     }
+
     bubbleSortByStep(list: number[]): void {
         let needNextPass: boolean = true;
         for (let k = 1; k < list.length && needNextPass; k++) {
@@ -42,5 +43,18 @@ export class Arr {
             }
             console.log();
         }
+    }
+
+    static selectionSort() {
+        for (let j = 0; j < Arr.list.length - 1; j++) {
+            for (let i = j + 1; i < Arr.list.length; i++) {
+                if (Arr.list[j] > Arr.list[i]) {
+                    let temp = Arr.list[j]
+                    Arr.list[j] = Arr.list[i]
+                    Arr.list[i] = temp
+                }
+            }
+        }
+        return Arr.list
     }
 }
