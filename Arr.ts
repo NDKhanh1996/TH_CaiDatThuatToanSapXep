@@ -16,45 +16,63 @@ export class Arr {
         return arr
     }
 
-    bubbleSortByStep(list: number[]): void {
-        let needNextPass: boolean = true;
-        for (let k = 1; k < list.length && needNextPass; k++) {
-            needNextPass = false;
-            for (let i = 0; i < list.length - k; i++) {
-                if (list[i] > list[i + 1]) {
-                    /* Swap list[i] with list[i + 1] */
-                    console.log("Swap " + list[i] + " with " + list[i + 1]);
-                    let temp: number = list[i];
-                    list[i] = list[i + 1];
-                    list[i + 1] = temp;
-
-                    needNextPass = true; /* Next pass still needed */
-                }
-            }
-            /* Array may be sorted and next pass not needed */
-            if (needNextPass == false) {
-                console.log("Array may be sorted and next pass not needed");
-                break;
-            }
-            /* Show the list after sort */
-            console.log("List after the  " + k + "' sort: ");
-            for (let j = 0; j < list.length; j++) {
-                console.log(list[j] + "\t");
-            }
-            console.log();
-        }
-    }
-
     static selectionSort() {
-        for (let j = 0; j < Arr.list.length - 1; j++) {
-            for (let i = j + 1; i < Arr.list.length; i++) {
-                if (Arr.list[j] > Arr.list[i]) {
-                    let temp = Arr.list[j]
-                    Arr.list[j] = Arr.list[i]
-                    Arr.list[i] = temp
+        let y = 0
+        let minIndex = -1
+        console.log(`begin ${Arr.list}`)
+        for (let i = 0; i < Arr.list.length; i++) {
+            let min = Arr.list[i]
+            for (let j = i + 1; j < Arr.list.length; j++) {
+                if (min > Arr.list[j]) {
+                    min = Arr.list[j]
+                    minIndex = j
                 }
             }
+            if (min !== Arr.list[i]) {
+                let temp = Arr.list[i]
+                Arr.list[i] = Arr.list[minIndex]
+                Arr.list[minIndex] = temp
+            }
+
+            console.log(`-------------------------------`)
+            console.log(`step  ${i + 1}:`)
+            console.log(`swap ${Arr.list[minIndex]} with min: ${Arr.list[i]}`)
+            console.log(`after: ${Arr.list}`)
+
         }
         return Arr.list
+    }
+
+    static insertionBubbleSort() {
+        let x = 1
+        for (let i = 1; i < Arr.list.length - 1; i++) {
+            if (Arr.list[i - 1] > Arr.list[i]) {
+                [Arr.list[i - 1], Arr.list[i]] = [Arr.list[i], Arr.list[i - 1]]
+            }
+            for (let j = i - 1; j > 0; j--) {
+                if (Arr.list[j - 1] > Arr.list[j]) {
+                    [Arr.list[j - 1], Arr.list[j]] = [Arr.list[j], Arr.list[j - 1]]
+                }
+            }
+            console.log(`step ${x}:`)
+            console.log(`arr: ${Arr.list}`)
+            console.log("Swap " + Arr.list[i] + " with " + Arr.list[i + 1]);
+            console.log(`-------------------------------`)
+            x++
+        }
+        return Arr.list
+    }
+
+    static insertionSort() {
+        let arr = Arr.list
+        for (let i = 1; i < arr.length; i++) {
+            let key = arr[i];
+            while (i > 0 && arr[i - 1] > key) {
+                arr[i] = arr[i - 1];
+                i--;
+            }
+            arr[i] = key;
+        }
+        return arr;
     }
 }
